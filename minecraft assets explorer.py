@@ -27,13 +27,14 @@ def naviguate(folder, jsonDict, path=""):
         if not folder[selection]:
             sha = jsonDict['objects'][path+selection]['hash']
             print("\nFile hash :",sha)
-            system("mkdir "+getenv("userprofile")+"\\Documents\\Minecraft")
-            copyfile(appdata+"\\.minecraft\\assets\\objects\\"+sha[0:2]+"\\"+sha, getenv("userprofile")+"\\Documents\\Minecraft\\"+selection)
-            print("File extracted into",appdata+"\\Documents\\Minecraft\\"+selection)
+            system("mkdir "+getenv("userprofile")+"\\Documents\\Minecraft 2> nul")
+            copyfile(appdata + "\\.minecraft\\assets\\objects\\"+sha[0:2]+"\\" + sha, getenv("userprofile") + "\\Documents\\Minecraft\\" + selection)
+            print("File extracted into", userprofile + "\\Documents\\Minecraft\\" + selection)
             sleep(2)
         else: naviguate(folder[selection], jsonDict, path+selection+"/")
 
-appdata=getenv("appdata")
+appdata = getenv("appdata")
+userprofile = getenv("userprofile")
 try:
     versions = listdir(appdata+"\\.minecraft\\assets\\indexes")
     choice = ""
@@ -51,4 +52,4 @@ try:
     naviguate(folders, elements)
 except Exception as error:
     traceback.print_exc()
-    print("An error occured, check if Minecraft is installed")
+    print("An error occured, check if Minecraft data is correctly stored in", appdata)
